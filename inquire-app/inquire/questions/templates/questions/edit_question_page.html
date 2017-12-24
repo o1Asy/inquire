@@ -1,0 +1,25 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+{% if can_edit %}
+<form method=POST action="{% url 'questions:edit_question' question.id %}" method=post>
+    {% csrf_token %}
+    <h2>Titile:</h2> <br>
+    <input type="text" name="question_title" value="{{ question.question_title }}" >
+    <br>
+    <br>
+    <h2>Question content?:</h2> <br>
+    <textarea class="form-control" type=text name=question_text rows="10" cols="40"> {{ question.question_text }} </textarea> <br>
+    <input class="btn btn-primary" type=submit name=Submit value=Submit>
+    <input class="btn btn-primary" type=submit name=Cancel value=Cancel>
+</form>
+{% else %}
+    <p> <font color="red">This question is created by {{ question.author }}, you can only view it</font> </p>
+    <p> Question is: </p>
+    <p>{{ question.question_text }}</p>
+{% endif %}
+<p>Creation time: {{ question.pub_date }}</p>
+<p>Last updated at: {{ question.modification_time }}</p>
+
+{% endblock %}

@@ -1,0 +1,21 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+{% if can_edit %}
+<h3> Question is: {{ question.question_text }}</h3>
+<form method=POST action="{% url 'questions:edit_answer' question.id answer.id %}" method=post>
+    {% csrf_token %}
+    <h3 style="color: red;">Change your mind to this question? Update your answer here:</h3> <br>
+    <textarea class = "form-control" type=text name=answer_text rows="20" cols="80"> {{ answer.answer_text }} </textarea> <br>
+    <input class="btn btn-primary" type=submit name=Submit value=Submit>
+    <input class="btn btn-primary" type=submit name=Cancel value=Cancel>
+    <p>Answer is created at:{{ answer.pub_date }}</p>
+    <p>Last updated at:{{ answer.modification_time }}</p>
+</form>
+{% else %}
+    <p> <font color="red">This answer is created by {{ answer.author }}, you can only view it</font> </p>
+    <p>Answer is:</p>
+    <p>{{ answer.answer_text }}</p>
+{% endif %}
+{% endblock %}

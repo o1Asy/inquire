@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+{{ error }}
+{#<form method='post' action='{% url 'profiles:login' %}'>#}
+{#    {% csrf_token %}#}
+{#    {{ form.as_p }}#}
+{#    <input type='submit'>#}
+{#</form>#}
+    <form method='post' action='{% url 'profiles:login' %}'>
+    	{% csrf_token %}
+    	<p><label for="id_username">Username:</label> <input class="form-control" id="id_username" maxlength="254" name="username" type="text" /></p>
+    	<p><label for="id_password">Password:</label> <input class="form-control" id="id_password" name="password" type="password" /></p>
+    	<input class="btn btn-primary" type='submit'>
+    </form>
+{% endblock %}
+

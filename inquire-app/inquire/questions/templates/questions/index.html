@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div id="masthead">
+    <div class="container">
+        <div class="row">
+            <div>
+                {% if tag %}
+                    <h1> Questions related to <span style="color:red">{{ tag }}</span>
+                    </h1>
+                {% else %}
+                <h1>Questions</h1>
+                {% endif %}
+            </div>
+        </div>
+    </div><!-- /cont -->
+
+</div>
+{% if latest_question_list %}
+
+    <ul>
+    {% for question in latest_question_list %}
+            <div class="row">
+            <br>
+{#            <div class="col-md-2 col-sm-3 text-center">#}
+{#              <a class="story-img" href="#"><img src="//placehold.it/100" style="width:100px;height:100px" class="img-circle"></a>#}
+{#            </div>#}
+            <div class="col-md-10 col-sm-9">
+              <li><h3>Question title: {{ question.question_title | truncatechars:500  }}.</h3></li>
+              <li><h3>Question content: {{ question.question_text | truncatechars:500  }}.</h3></li>
+                <p class="pull-left">
+
+                    {% if question.tags.all %}
+                        {% for tag in question.tags.all %}
+                            <span class="label label-success"><a href="{% url 'questions:tag_handler' tag.id %}">{{ tag }}</a></span>
+                        {% endfor %}
+                    {% endif %}
+                </p>
+            <br>
+            <br>
+              <div class="row">
+                <div class="col-xs-9">
+                  <p> Author: {{ question.author.full_name }} </p>
+                      <p>Created at: {{ question.pub_date }}</p>
+                      <p>Last updated at: {{ question.modification_time }}</p>
+                  <p class="lead"><button class="btn btn-default"><a href="{% url 'questions:detail' question.id %}">Read more</a></button></p>
+
+
+                  <ul class="list-inline">
+                  <li><a href="#">  </a> {{ question.number_of_answers }} answers now </li>
+                  <li><a href="#"><i class="glyphicon glyphicon-comment"></i></a></li>
+                  <li><a href="#"><i class="glyphicon glyphicon-share"></i></a></li>
+                  </ul>
+                  </div>
+                <div class="col-xs-3"></div>
+              </div>
+              <br><br>
+            </div>
+          </div>
+          <hr>
+
+    {% endfor %}
+    </ul>
+
+
+{% else %}
+    <p>No questions are available.</p>
+{% endif %}
+
+<div class="pagination">
+    <span class="step-links">
+        {% if latest_question_list.has_previous %}
+            <a href="?page={{ latest_question_list.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ latest_question_list.number }} of {{ latest_question_list.paginator.num_pages }}.
+        </span>
+
+        {% if latest_question_list.has_next %}
+            <a href="?page={{ latest_question_list.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+
+{% endblock %}
+

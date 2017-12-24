@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+
+
+<header class="navbar navbar-default navbar-fixed-top" role="banner">
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="{% url 'questions:index' %}">INQUIRE</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li><a href="{% url 'questions:index' %}">Home</a></li>
+          <li><a href="{% url 'questions:ask' %}">Ask questions</a></li>
+        </ul>
+        {% if not user.is_authenticated %}
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="{% url 'profiles:register_user' %}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li><a href="{% url 'profiles:login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+        {% else %}
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#">Welcome, {{user.first_name}}</a></li>
+          <li><a href="{% url 'profiles:logout' %}">Logout</a></li>
+        </ul>
+        {% endif %}
+      </div>
+    </nav>
+</header>
+
+<br>
+<br>
+<br>
+<br>
+
+
+<div class="container">
+  <div class="row">
+    
+    <div class="col-md-12"> 
+      
+      <div class="panel">
+        <div class="panel-body">
+
+     <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+        
+          
+        </div>
+      </div>
+                                                                                       
+                                                  
+                                                      
+    </div><!--/col-12-->
+  </div>
+</div>
+
+
+
+ 
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

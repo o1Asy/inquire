@@ -1,0 +1,15 @@
+
+<a href="{% url 'questions:index' %}">home page</a>
+<h1>{{ question.question_text }}</h1>
+
+<ul>
+{% for answer in answers %}
+    <li>{{ answer.answer_text }}
+    </li>
+    <div>{{ answer.up_votes }} users agree with this answers</div>
+    <div>{{ answer.down_votes }} users disagree with this answers</div>
+    <div>{{ answer.net_votes }} net votes (meaning up_votes-down_votes)</div>
+{% endfor %}
+</ul>
+
+<a href="{% url 'questions:detail' question.id %}">Vote again? </a>
